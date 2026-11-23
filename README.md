@@ -25,8 +25,8 @@ and Ender 3.
 ## Quick start
 
 ```bash
-git clone ssh://git@ssh-git.zaknack.com:2222/angryceo/gridfinity-scripts.git
-cd gridfinity-scripts
+git clone https://github.com/spudstr/gridfinity-baseplate-generator.git
+cd gridfinity-baseplate-generator
 python make_baseplate.py 3 3
 ```
 
