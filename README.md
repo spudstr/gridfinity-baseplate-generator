@@ -111,6 +111,11 @@ bin: a standard Gridfinity bin is 41.5 mm wide.
 Generated STL files go in `output/`. The 3x3 and 4x4 baseplates are already
 included, ready to download and print.
 
+## License
+
+[MIT](LICENSE). Free to use, modify and share, including for commercial
+use. The generated STL files are yours to print, sell or remix.
+
 ## Credits
 
 Gridfinity is the modular storage system created by Zack Freedman. This
