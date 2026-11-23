@@ -1,0 +1,10 @@
+version: 2
+updates:
+  # Keeps the GitHub Actions used in .github/workflows up to date.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    labels: ["dependencies", "github-actions"]
+    commit-message:
+      prefix: "ci"
