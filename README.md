@@ -21,8 +21,8 @@ and Ender 3.
 - **Clean, watertight mesh**: every generated STL is checked for open or
   mismatched edges, and the result is printed (`bad edges 0`), so slicers
   have nothing to repair. Automated tests check this on every change.
-- **Zero dependencies**: needs only Python 3.10 or newer. Tested on Windows,
-  macOS and Linux.
+- **Zero dependencies**: needs only Python 3.10 or newer. Tested on the
+  latest Python 3 on Windows, macOS and Linux.
 
 ## Quick start
 
