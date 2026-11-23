@@ -1,0 +1,37 @@
+name: Sync labels
+
+# Creates or updates the repository's labels from .github/labels.txt.
+# Labels not in the file are left alone.
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/labels.txt
+      - .github/workflows/labels.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Create or update labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          grep -v '^\s*#' .github/labels.txt | grep -v '^\s*$' |
+          while IFS='|' read -r name color desc; do
+            name="$(echo "$name" | xargs)"
+            color="$(echo "$color" | xargs)"
+            desc="$(echo "$desc" | sed 's/^ *//;s/ *$//')"
+            echo "Label: $name"
+            gh label create "$name" --color "$color" --description "$desc" --force
+          done

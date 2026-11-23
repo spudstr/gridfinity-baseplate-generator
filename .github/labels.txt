@@ -1,0 +1,19 @@
+# Repository labels, synced by .github/workflows/labels.yml.
+# Format: name | colour (hex, no #) | description
+bug | d73a4a | Something isn't working
+enhancement | a2eeef | New feature or request
+documentation | 0075ca | README, NOTICE or other docs
+question | d876e3 | Further information is requested
+triage | fbca04 | Needs a first look from the maintainer
+good first issue | 7057ff | Good for newcomers
+help wanted | 008672 | Extra attention is needed
+duplicate | cfd3d7 | This issue or pull request already exists
+invalid | e4e669 | This doesn't seem right
+wontfix | ffffff | This will not be worked on
+security | b60205 | Security-related issue or fix
+fit | c5def5 | Printed baseplate doesn't fit bins or drawer
+geometry | 1d76db | Mesh shape, dimensions or watertightness
+cli | 5319e7 | Command-line options and messages
+slicer | bfdadc | Slicer import or mesh warnings
+dependencies | 0366d6 | Updates to dependencies
+github-actions | 000000 | Updates to GitHub Actions workflows

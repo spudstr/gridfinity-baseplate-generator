@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Generated baseplates: keep only the committed examples
+output/*
+!output/gridfinity_baseplate_3x3.stl
+!output/gridfinity_baseplate_4x4.stl
+
+# Slicer projects and print files
+*.3mf
+*.gcode
+*.bgcode
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini

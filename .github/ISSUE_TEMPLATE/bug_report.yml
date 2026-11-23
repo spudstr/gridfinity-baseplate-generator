@@ -1,0 +1,46 @@
+name: Bug report
+description: Something is wrong with the script or a generated baseplate.
+labels: ["bug", "triage"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What went wrong, and what did you expect instead?
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Command you ran
+      placeholder: python make_baseplate.py 4 4
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Script output
+      description: Paste everything the script printed, including any error.
+      render: text
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Type of problem
+      options:
+        - Script error or crash
+        - Printed part doesn't fit bins
+        - Slicer warns about the mesh
+        - Wrong size
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: fit
+    attributes:
+      label: Fit details (for fit problems)
+      description: Printer, slicer, filament, and what you measured on the printed part and the bins.
+  - type: input
+    id: env
+    attributes:
+      label: Operating system and Python version
+      placeholder: Windows 11, Python 3.13
