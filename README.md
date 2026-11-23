@@ -36,7 +36,7 @@ On Windows, use `py` instead of `python`. The STL is saved to
 ### Usage
 
 ```
-python make_baseplate.py [columns] [rows] [output.stl]
+python make_baseplate.py [columns] [rows] [output.stl] [--cell SIZE]
 ```
 
 | Example | Result |
@@ -44,6 +44,20 @@ python make_baseplate.py [columns] [rows] [output.stl]
 | `python make_baseplate.py` | 3x3 baseplate in `output/` |
 | `python make_baseplate.py 4 4` | 4x4 baseplate in `output/` |
 | `python make_baseplate.py 2 5 drawer.stl` | 2x5 baseplate saved as `drawer.stl` |
+| `python make_baseplate.py 3 3 --cell 2in` | 3x3 baseplate with 2 in (50.8 mm) cells |
+| `python make_baseplate.py --help` | Show all options |
+
+### Custom cell size
+
+`--cell` changes the grid cell size. It defaults to the **standard 42 mm
+Gridfinity grid**, so you only need it for a custom or imperial grid. It
+accepts millimetres (`--cell 50`) or inches (`--cell 2in`). Non-standard
+files get the cell size in their name, e.g.
+`gridfinity_baseplate_3x3_50.8mm-cell.stl`.
+
+Only 42 mm cells fit standard Gridfinity bins. A custom cell size keeps the
+standard Gridfinity socket profile, so it suits bins you design to match.
+It will not necessarily fit bins from other "Gridfinity-inspired" systems.
 
 The script prints the file path, the final size in mm, and the mesh check
 result (`bad edges 0` means the mesh is watertight).
