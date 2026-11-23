@@ -22,10 +22,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
+        # "3.x" is always the newest stable Python 3 release.
         python: ["3.x"]
-        include:
-          - os: ubuntu-latest
-            python: "3.10"
     steps:
       - uses: actions/checkout@v5
         with:
