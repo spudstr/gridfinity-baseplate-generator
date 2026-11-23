@@ -18,9 +18,11 @@ and Ender 3.
 - **Any size**: 1x1, 2x3, 3x3, 4x4, 5x5 or any custom grid.
 - **Open-frame (lite) baseplate**: fast to print, uses little filament,
   needs no supports.
-- **Clean, watertight mesh**: every STL is checked for open edges before it
-  is saved, so slicers never need to repair it.
-- **Zero dependencies**: needs only Python 3. Works on Windows, macOS and Linux.
+- **Clean, watertight mesh**: every generated STL is checked for open or
+  mismatched edges, and the result is printed (`bad edges 0`), so slicers
+  have nothing to repair. Automated tests check this on every change.
+- **Zero dependencies**: needs only Python 3.10 or newer. Tested on the
+  latest Python 3 on Windows, macOS and Linux.
 
 ## Quick start
 
@@ -87,9 +89,12 @@ vertical wall, 0.7 mm chamfer at 45°, 4.65 mm deep in total.
 | Prusa MINI+ | 180 × 180 mm | 4x4 |
 | Ender 3 / V2 / V3 | 220 × 220 mm | 5x5 |
 | Bambu Lab A1, P1S, X1C | 256 × 256 mm | 6x6 |
-| Prusa MK4 / MK3S | 250 × 210 mm | 5x5 |
+| Prusa MK4 / MK3S | 250 × 210 mm | 5x4 |
 
-For a bigger drawer, print several baseplates and set them side by side.
+These leave a little margin. A plate exactly as big as the bed (for
+example 5 cells, 210 mm, on a 210 mm axis) usually won't print, because
+slicers keep the edge of the bed clear. For a bigger drawer, print several
+baseplates and set them side by side.
 
 ## Printing tips
 
@@ -111,16 +116,28 @@ bin: a standard Gridfinity bin is 41.5 mm wide.
 Generated STL files go in `output/`. The 3x3 and 4x4 baseplates are already
 included, ready to download and print.
 
+## Contributing and security
+
+Bug reports, ideas and pull requests are welcome. See
+[CONTRIBUTING.md](CONTRIBUTING.md). To report a security issue privately,
+see [SECURITY.md](SECURITY.md).
+
 ## License
 
 [MIT](LICENSE). Free to use, modify and share, including for commercial
 use. The generated STL files are yours to print, sell or remix.
 
-## Credits
+## Credits and disclosures
 
-Gridfinity is the modular storage system created by Zack Freedman. This
-repository is an independent baseplate generator that follows the standard
-Gridfinity dimensions.
+Gridfinity is the modular storage system created by
+[Zack Freedman](https://www.youtube.com/c/ZackFreedman) and released under
+the MIT license. This repository is an **independent, unofficial** baseplate
+generator that follows the published Gridfinity dimensions. It is not
+affiliated with or endorsed by Zack Freedman or Voidstar Lab, and it
+contains no files from the original Gridfinity release.
+
+See [NOTICE.md](NOTICE.md) for full attribution, licensing notes and
+disclosures.
 
 ---
 

@@ -1,0 +1,22 @@
+name: Feature request
+description: Suggest a new option or kind of baseplate.
+labels: ["enhancement", "triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: The drawer, printer or bins you're working with, and what's missing.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: How you'd like it to work, e.g. a new command-line option.
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: This should still produce standard 42 mm Gridfinity output by default.
