@@ -48,6 +48,6 @@ parts for your own use before relying on them.
 ## AI assistance
 
 Parts of this project's code and documentation were written with the help
-of an AI coding assistant (Anthropic's Claude). Every change was reviewed
+of an AI coding assistant. Every change was reviewed
 and committed by the maintainer, and generated meshes are checked
 automatically for watertightness and correct dimensions.

@@ -15,7 +15,7 @@ Thanks for helping improve the Gridfinity Baseplate Generator.
 
 1. Fork the repository and create a branch from `main`, named for the
    change, e.g. `feature/magnet-holes` or `fix/corner-gap`.
-2. Keep the script **dependency-free**: standard-library Python 3.9+ only.
+2. Keep the script **dependency-free**: standard-library Python 3.10+ only.
 3. Keep standard output at **standard Gridfinity dimensions** (42 mm grid,
    4.65 mm socket profile) unless the user asks otherwise with an option.
 4. Run the tests before opening a pull request:
