@@ -4,7 +4,11 @@
 chamfer, 1.8 mm vertical, 0.7 mm 45-degree chamfer), 4 mm outer corner radius.
 Writes a binary STL in millimetres, by default to output/.
 
-Run:  py make_baseplate.py [cols] [rows] [output.stl]
+Run:  py make_baseplate.py [cols] [rows] [output.stl] [--cell SIZE]
+
+--cell sets the grid cell size. It defaults to the Gridfinity standard of
+42 mm. Accepts millimetres ("50") or inches ("2in"). Any size other than
+42 mm is NOT compatible with standard Gridfinity bins.
 """
 import math
 import struct
@@ -19,8 +23,9 @@ HEIGHT = PROFILE[-1][0]
 ARC_SEGS = 12        # segments per rounded corner
 
 
-def build(cols, rows):
-    W, D = cols * PITCH, rows * PITCH
+def build(cols, rows, pitch=PITCH):
+    if pitch < 2 * R_TOP + 1:
+        raise ValueError(f"cell size must be at least {2 * R_TOP + 1} mm")
     tris = []
 
     def flat(t, up):
@@ -35,7 +40,7 @@ def build(cols, rows):
 
     for i in range(cols):
         for j in range(rows):
-            x0, y0, x1, y1 = i * PITCH, j * PITCH, (i + 1) * PITCH, (j + 1) * PITCH
+            x0, y0, x1, y1 = i * pitch, j * pitch, (i + 1) * pitch, (j + 1) * pitch
             # Corners counter-clockwise: (corner point, arc centre offset dir, start angle)
             corners = [((x1, y0), (-1, 1), -90), ((x1, y1), (-1, -1), 0),
                        ((x0, y1), (1, -1), 90), ((x0, y0), (1, 1), 180)]
@@ -142,13 +147,37 @@ def check(tris):
 
 
 if __name__ == "__main__":
-    cols = int(sys.argv[1]) if len(sys.argv) > 1 else 3
-    rows = int(sys.argv[2]) if len(sys.argv) > 2 else 3
+    import argparse
+
+    def cell_size(s):
+        s = s.strip().lower()
+        if s.endswith(("in", '"')):
+            return float(s.rstrip('in"').strip()) * 25.4
+        return float(s.removesuffix("mm"))
+
+    ap = argparse.ArgumentParser(description="Generate a Gridfinity baseplate STL.")
+    ap.add_argument("cols", nargs="?", type=int, default=3, help="columns (default 3)")
+    ap.add_argument("rows", nargs="?", type=int, default=3, help="rows (default 3)")
+    ap.add_argument("output", nargs="?", help="output .stl path (default: output/)")
+    ap.add_argument("--cell", type=cell_size, default=PITCH,
+                    help='grid cell size in mm or inches, e.g. 42, 50.8 or 2in '
+                         '(default 42 = Gridfinity standard)')
+    args = ap.parse_args()
+    cols, rows, pitch = args.cols, args.rows, args.cell
+    if pitch < 2 * R_TOP + 1:
+        ap.error(f"--cell must be at least {2 * R_TOP + 1:g} mm (got {pitch:g} mm)")
+    if cols < 1 or rows < 1:
+        ap.error("cols and rows must be at least 1")
+
+    standard = abs(pitch - PITCH) < 1e-9
+    suffix = "" if standard else f"_{pitch:g}mm-cell"
     out_dir = Path(__file__).parent / "output"
     out_dir.mkdir(exist_ok=True)
-    out = Path(sys.argv[3]) if len(sys.argv) > 3 else out_dir / f"gridfinity_baseplate_{cols}x{rows}.stl"
-    tris = build(cols, rows)
-    write_stl(out, tris, f"Gridfinity baseplate {cols}x{rows}")
+    out = Path(args.output) if args.output else out_dir / f"gridfinity_baseplate_{cols}x{rows}{suffix}.stl"
+    if not standard:
+        print(f"Note: {pitch:g} mm cells are not compatible with standard 42 mm Gridfinity bins.")
+    tris = build(cols, rows, pitch)
+    write_stl(out, tris, f"Gridfinity baseplate {cols}x{rows} {pitch:g}mm")
     bad, vol, size = check(tris)
     print(f"{out}: {len(tris)} triangles, bad edges {bad}, volume {vol:.1f} mm^3, "
           f"size {size[0]:.2f} x {size[1]:.2f} x {size[2]:.2f} mm")
